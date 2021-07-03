@@ -1,0 +1,9 @@
+{
+    "name": "Table of Content",
+    "namespace": "Botble\\ToC\\",
+    "provider": "Botble\\ToC\\Providers\\ToCServiceProvider",
+    "author": "Anh Ngo",
+    "url": "",
+    "version": "0.1",
+    "description": "The description for table of content plugin"
+}

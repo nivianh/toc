@@ -1,0 +1,33 @@
+.toc-container {
+    border: 1px solid var(--color-1st);
+    width: auto;
+    padding: 10px;
+    margin-bottom: 1em;
+    display: table;
+    font-size: 95%;
+
+    &.contracted {
+        width: 100%;
+    }
+
+    > ul {
+        display: none;
+        margin-top: 1em;
+    }
+    p.toc_title {
+        text-align: center;
+        font-weight: 700;
+        margin-bottom: 0 !important;
+
+        a:hover, ul a:hover {
+            color: var(--color-1st);
+        }
+        a:visited, ul a:visited {
+            color: var(--color-1st);
+        }
+    }
+    span.toc_toggle {
+        font-weight: 400;
+        font-size: 90%;
+    }
+}
