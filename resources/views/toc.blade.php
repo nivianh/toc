@@ -23,7 +23,7 @@
                     $numberedItems[$currentDepth]++;
                 @endphp
             @endif
-            {{ strip_tags($matches[$i][0]) }}
+            {!! clean(strip_tags($matches[$i][0])) !!}
         </a>
     @endif
     {{-- // end lists --}}
