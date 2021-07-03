@@ -26,6 +26,7 @@ class ToCServiceProvider extends ServiceProvider
         $this->setNamespace('plugins/toc')
             ->loadAndPublishConfigurations(['general'])
             ->loadAndPublishTranslations()
+            ->publishAssets()
             ->loadAndPublishViews();
 
         $this->app->register(HookServiceProvider::class);
