@@ -312,6 +312,8 @@ class ToCHelper
 
         config(['plugins.toc.general.supported' => $supported]);
 
+        $this->options['supported'] = $supported;
+
         return $this;
     }
 
@@ -345,6 +347,39 @@ class ToCHelper
 
         config(['plugins.toc.general.supported' => $supported]);
 
+        $this->options['supported'] = $supported;
+
         return $this;
+    }
+
+    /**
+     * @param array $config
+     * @return $this
+     */
+    public function setConfig(array $config)
+    {
+        $options = array_merge($this->options, $config);
+
+        config(['plugins.toc.general' => $options]);
+
+        $this->options = $options;
+
+        return $this;
+    }
+
+    /**
+     * @param string|null $key
+     * @param mixed $default
+     * @return mixed
+     */
+    public function config($key = null, $default = null)
+    {
+        $options = $this->options;
+
+        if ($key) {
+            $options = Arr::get($options, $key, $default);
+        }
+
+        return $options;
     }
 }

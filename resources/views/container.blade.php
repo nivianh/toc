@@ -5,4 +5,5 @@
             [<a href="#">{{ trans('plugins/toc::toc.show') }}</a>]
         </span>
     </p>
-<ul class="toc_list">{!! $items !!}</ul></div>
+    <ul class="toc_list">{!! $items !!}</ul>
+</div>
