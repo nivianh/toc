@@ -3,12 +3,9 @@
 namespace Botble\ToC\Providers;
 
 use Botble\Base\Models\BaseModel;
-use Botble\ToC\Services\ToCService;
-use Botble\Blog\Models\Post;
-use MetaBox;
-use Illuminate\Support\ServiceProvider;
-use Illuminate\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\ServiceProvider;
+use MetaBox;
 use Theme;
 use ToCHelper;
 
@@ -29,12 +26,13 @@ class HookServiceProvider extends ServiceProvider
     public function addToCContent($screen, $object)
     {
         if ($object && ToCHelper::isSupportedModel(get_class($object))) {
-            $showToC = MetaBox::getMetaData($object, 'show_toc_in_content', true) ?: config('plugins.toc.general.default_option_in_form');
+            $showToC = MetaBox::getMetaData($object, 'show_toc_in_content',
+                true) ?: config('plugins.toc.general.default_option_in_form');
 
             if ($showToC == 'yes' || !ToCHelper::config('show_option_in_form')) {
                 Theme::asset()
-                ->usePath(false)
-                ->add('toc-css', 'vendor/core/plugins/toc/css/toc.css');
+                    ->usePath(false)
+                    ->add('toc-css', 'vendor/core/plugins/toc/css/toc.css');
 
                 Theme::asset()
                     ->container('footer')
@@ -61,7 +59,6 @@ class HookServiceProvider extends ServiceProvider
                     'additional_toc_fields',
                     $title,
                     function () {
-                        $data = null;
                         $args = func_get_args();
                         $showToC = config('plugins.toc.general.default_option_in_form');
                         if (!empty($args[0])) {

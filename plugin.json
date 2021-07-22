@@ -4,6 +4,6 @@
     "provider": "Botble\\ToC\\Providers\\ToCServiceProvider",
     "author": "Anh Ngo",
     "url": "",
-    "version": "0.1",
-    "description": "The description for table of content plugin"
+    "version": "1.1",
+    "description": "Table of Contents"
 }

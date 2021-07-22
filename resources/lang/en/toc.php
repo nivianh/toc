@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'post_content'  => 'Post contents',
+    'post_content'  => 'Table of contents',
     'show'          => 'Show',
     'hide'          => 'Hide',
 ];

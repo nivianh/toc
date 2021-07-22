@@ -11,7 +11,12 @@ class ToCHelper
     /**
      * array
      */
-    private $options;
+    protected $options;
+
+    /**
+     * @var array
+     */
+    protected $collisionCollector;
 
     /**
      * ToC constructor.
@@ -27,7 +32,6 @@ class ToCHelper
      */
     public function theContent($content)
     {
-        $items = '';
         $customToCPosition = strpos($content, $this->theTag);
         $find = [];
         $replace = [];
@@ -37,7 +41,7 @@ class ToCHelper
 
             $cssClasses = trim(Arr::get($this->options, 'css_container_class'));
 
-            // add container, toc title and list items
+            // Add container, toc title and list items
             $html = view('plugins/toc::container', compact('cssClasses', 'items'))->render();
 
             if ($customToCPosition !== false) {
@@ -86,7 +90,7 @@ class ToCHelper
             if (function_exists('mb_strpos')) {
                 for ($i = 0; $i < count($find); $i++) {
                     $string =
-                        mb_substr($string, 0, mb_strpos($string, $find[$i])) . // everything befor $find
+                        mb_substr($string, 0, mb_strpos($string, $find[$i])) . // everything before $find
                         $replace[$i] . // its replacement
                         mb_substr($string, mb_strpos($string, $find[$i]) + mb_strlen($find[$i])) // everything after $find
                     ;
@@ -118,7 +122,6 @@ class ToCHelper
     public function extractHeadings(&$find, &$replace, $content = '')
     {
         $matches = [];
-        $anchor = '';
         $items = false;
 
         // reset the internal collision collection as the_content may have been triggered elsewhere
@@ -238,9 +241,7 @@ class ToCHelper
     private function buildHierarchy(&$matches)
     {
         $currentDepth = 100; // headings can't be larger than h6 but 100 as a default to be sure
-        $html = '';
         $numberedItems = [];
-        $numberedItemsMin = null;
 
         // find the minimum heading to establish our baseline
         for ($i = 0; $i < count($matches); $i++) {
@@ -262,7 +263,7 @@ class ToCHelper
     /**
      * Returns a clean url to be used as the destination anchor target
      */
-    private function urlAnchorTarget($title)
+    protected function urlAnchorTarget($title)
     {
         $return = false;
 
@@ -330,7 +331,7 @@ class ToCHelper
      */
     public function isSupportedModel(string $model): bool
     {
-        return in_array($model, array_keys($this->supportedModels()));
+        return in_array($model, $this->supportedModels());
     }
 
     /**
