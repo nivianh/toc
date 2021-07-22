@@ -13,10 +13,12 @@ $(() => {
         if ($target.length) {
             let offset = 20;
 
-            if ($("#admin_bar").length > 0 && $("#admin_bar").is(":visible")) {
-                offset += $("#admin_bar").height();
+            let $adminBar = $('#admin_bar');
+
+            if ($adminBar.length > 0 && $adminBar.is(':visible')) {
+                offset += $adminBar.height();
             }
-            
+
             $([document.documentElement, document.body]).animate({
                 scrollTop: $target.offset().top - offset
             }, 1000);
@@ -40,15 +42,15 @@ $(() => {
 
     // Default is Close
     let isVisibilityToC = localStorage.getItem('visibilityTextToC');
-    if ( isVisibilityToC == '1' ) {
+    if (isVisibilityToC == '1') {
         showToCContainer();
     }
 
-    $(document).on('click', "span.toc_toggle a", function(e) {
+    $(document).on('click', 'span.toc_toggle a', function (e) {
         e.preventDefault();
         const $this = $(e.currentTarget);
         const isOpen = $this.closest('.toc-container').hasClass('contracted');
-        if ( isOpen ) {
+        if (isOpen) {
             localStorage.setItem('visibilityTextToC', '0');
             hideToCContainer();
         } else {

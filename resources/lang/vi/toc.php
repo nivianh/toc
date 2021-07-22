@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'post_content'  => 'Nội dung bài viết',
+    'post_content'  => 'Mục lục',
     'show'          => 'Hiển thị',
     'hide'          => 'Ẩn',
 ];

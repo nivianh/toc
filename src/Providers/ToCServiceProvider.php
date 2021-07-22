@@ -2,13 +2,11 @@
 
 namespace Botble\ToC\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use Botble\Base\Supports\Helper;
-use Event;
 use Botble\Base\Traits\LoadAndPublishDataTrait;
-use Illuminate\Routing\Events\RouteMatched;
-use Illuminate\Foundation\AliasLoader;
 use Botble\ToC\Facades\ToCHelperFacade;
+use Illuminate\Foundation\AliasLoader;
+use Illuminate\Support\ServiceProvider;
 
 class ToCServiceProvider extends ServiceProvider
 {
