@@ -16,7 +16,7 @@ class ToCHelper
     public function __construct()
     {
         $this->options = config('plugins.toc.general', []);
-        if (Str::isJson($settings = setting('plugin_toc_settings'))) {
+        if (($settings = setting('plugin_toc_settings')) && Str::isJson($settings)) {
             $this->setConfig(json_decode($settings, true));
         }
 

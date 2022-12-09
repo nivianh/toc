@@ -9,6 +9,7 @@ use Plugin\ToC\Http\Requests\ToCSettingsRequest;
 use Plugin\ToC\Plugin;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Arr;
 
 class ToCController extends BaseController
 {
@@ -28,8 +29,14 @@ class ToCController extends BaseController
 
     public function postSettings(ToCSettingsRequest $request, BaseHttpResponse $response): BaseHttpResponse
     {
-        $data = $request->validated();
-        $this->settingStore->set('plugin_toc_settings', json_encode($data));
+        $validated = $request->validated();
+        foreach ($validated as $key => $value) {
+            if (config('plugins.toc.general.' . $key) == $value) {
+                Arr::forget($validated, $key);
+            }
+        }
+
+        $this->settingStore->set('plugin_toc_settings', $validated ? json_encode($validated) : '');
 
         $this->settingStore->save();
 
