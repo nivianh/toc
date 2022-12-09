@@ -2,6 +2,7 @@
     {!! Form::customSelect(
         'show_toc_in_content',
         [
+            'default' => trans('plugins/toc::toc.settings.default'),
             'yes' => trans('core/base::base.yes'),
             'no'  => trans('core/base::base.no'),
         ],

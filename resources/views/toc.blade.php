@@ -44,7 +44,7 @@
         {{-- // this is the last item, make sure we close off all tags --}}
         @for ($currentDepth; $currentDepth >= $numberedItemsMin; $currentDepth--)
             </li>
-            @if ($currentDepth != $numberedItemsMin) {
+            @if ($currentDepth != $numberedItemsMin)
                 </ul>
             @endif
         @endfor

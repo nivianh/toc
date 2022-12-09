@@ -1,6 +1,6 @@
 <?php
 
-namespace Botble\ToC\Providers;
+namespace Plugin\ToC\Providers;
 
 use Botble\Base\Models\BaseModel;
 use Illuminate\Http\Request;
@@ -19,24 +19,20 @@ class HookServiceProvider extends ServiceProvider
         add_action(BASE_ACTION_AFTER_UPDATE_CONTENT, [$this, 'saveFieldsInFormScreen'], 75, 3);
     }
 
-    /**
-     * @param string $screen
-     * @param BaseModel $object
-     */
-    public function addToCContent($screen, $object)
+    public function addToCContent(string $screen, ?BaseModel $object)
     {
         if ($object && ToCHelper::isSupportedModel(get_class($object))) {
-            $showToC = MetaBox::getMetaData($object, 'show_toc_in_content',
-                true) ?: config('plugins.toc.general.default_option_in_form');
+            if (ToCHelper::config('show_options_in_form') == 'no') {
+                $showToC = 'default';
+            } else {
+                $showToC = $object->getMetaData('show_toc_in_content', true) ?: 'default';
+            }
 
-            if ($showToC == 'yes' || !ToCHelper::config('show_option_in_form')) {
-                Theme::asset()
-                    ->usePath(false)
-                    ->add('toc-css', 'vendor/core/plugins/toc/css/toc.css');
+            if ($showToC == 'yes' || ($showToC == 'default' && ToCHelper::config('is_enabled') == 'yes')) {
+                Theme::asset()->add('toc-css', 'vendor/core/plugins/toc/css/toc.css');
 
                 Theme::asset()
                     ->container('footer')
-                    ->usePath(false)
                     ->add('toc-js', 'vendor/core/plugins/toc/js/toc.js', ['jquery']);
 
                 $object->content = ToCHelper::theContent($object->content);
@@ -44,26 +40,19 @@ class HookServiceProvider extends ServiceProvider
         }
     }
 
-    /**
-     * @param string $context
-     * @param BaseModel $object
-     */
-    function addFieldsInFormScreen($context, $object)
+    public function addFieldsInFormScreen(string $context, ?BaseModel $object)
     {
-        if ($object && ToCHelper::isSupportedModel(get_class($object)) && ToCHelper::config('show_option_in_form')) {
-            $contextConfig = ToCHelper::config('context_sidebar_in_form');
-
-            if ($context == $contextConfig) {
-                $title = __('Show Table of Content?');
+        if ($object && ToCHelper::isSupportedModel(get_class($object)) && ToCHelper::config('show_options_in_form') == 'yes') {
+            if ($context == ToCHelper::config('context_meta_box_in_form')) {
                 MetaBox::addMetaBox(
                     'additional_toc_fields',
-                    $title,
+                    trans('plugins/toc::toc.show_toc'),
                     function () {
                         $args = func_get_args();
-                        $showToC = config('plugins.toc.general.default_option_in_form');
+                        $showToC = 'default';
                         if (!empty($args[0])) {
                             $data = $args[0];
-                            $showToC = MetaBox::getMetaData($data, 'show_toc_in_content', true);
+                            $showToC = $data->getMetaData('show_toc_in_content', true);
                         }
 
                         return view('plugins/toc::options-in-form', compact('showToC'))->render();
@@ -75,16 +64,11 @@ class HookServiceProvider extends ServiceProvider
         }
     }
 
-    /**
-     * @param string $type
-     * @param Request $type
-     * @param BaseModel $object
-     */
-    function saveFieldsInFormScreen($type, Request $request, $object)
+    public function saveFieldsInFormScreen(string $type, Request $request, ?BaseModel $object)
     {
-        if ($object && ToCHelper::isSupportedModel(get_class($object))) {
+        if ($object && ToCHelper::isSupportedModel(get_class($object)) && ToCHelper::config('show_options_in_form') == 'yes') {
             $showToC = $request->input('show_toc_in_content');
-            if (in_array($showToC, ['yes', 'no'])) {
+            if (in_array($showToC, ['default', 'yes', 'no'])) {
                 MetaBox::saveMetaBoxData($object, 'show_toc_in_content', $showToC);
             }
         }

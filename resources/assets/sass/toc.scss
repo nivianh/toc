@@ -1,5 +1,5 @@
 .toc-container {
-    border: 2px solid #086ad8;
+    border: 2px solid var(--color-1st, #bc2749);
     width: auto;
     padding: 10px;
     margin-bottom: 1em;
@@ -21,16 +21,19 @@
         margin-bottom: 0 !important;
 
         a:hover, ul a:hover {
-            color: var(--color-1st);
+            color: var(--color-1st, #bc2749);
         }
 
         a:visited, ul a:visited {
-            color: var(--color-1st);
+            color: var(--color-1st, #bc2749);
         }
     }
 
     span.toc_toggle {
         font-weight: 400;
         font-size: 90%;
+        .d-none {
+            display: none;
+        }
     }
 }

@@ -1,9 +1,9 @@
 {
     "name": "Table of Content",
-    "namespace": "Botble\\ToC\\",
-    "provider": "Botble\\ToC\\Providers\\ToCServiceProvider",
+    "namespace": "Plugin\\ToC\\",
+    "provider": "Plugin\\ToC\\Providers\\ToCServiceProvider",
     "author": "Anh Ngo",
-    "url": "",
-    "version": "1.1",
+    "url": "https://github.com/nivianh",
+    "version": "2.0",
     "description": "Table of Contents"
 }

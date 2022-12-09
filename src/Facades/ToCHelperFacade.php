@@ -1,13 +1,12 @@
 <?php
 
-namespace Botble\ToC\Facades;
+namespace Plugin\ToC\Facades;
 
-use Botble\ToC\ToCHelper;
+use Plugin\ToC\ToCHelper;
 use Illuminate\Support\Facades\Facade;
 
 class ToCHelperFacade extends Facade
 {
-
     /**
      * @return string
      */

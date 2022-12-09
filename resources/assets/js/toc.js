@@ -1,8 +1,14 @@
 $(() => {
-    if (window.location.hash && $('.toc-container ul').length) {
+    const tocSelector = '.toc-container';
+    const $tocContainer = $(tocSelector);
+
+    const $tocTitle = $tocContainer.find('.toc_title');
+
+    if (window.location.hash && $tocContainer.find('ul').length) {
         scrollToElement(window.location.hash)
     }
-    $(document).on('click', '.toc-container ul a[href^="#"]', (e) => {
+
+    $(document).on('click', tocSelector + ' ul a[href^="#"]', (e) => {
         e.preventDefault();
         const $this = $(e.currentTarget);
         scrollToElement($this.attr('href'))
@@ -26,30 +32,32 @@ $(() => {
         }
     }
 
-    const $tocTitle = $('.toc-container p.toc_title');
-
     function showToCContainer() {
-        $tocTitle.find('a').html($tocTitle.data('hide-text'));
-        $(".toc-container").addClass("contracted");
-        $(".toc-container ul:first").show("fast");
+        $tocTitle.find('.toc_toggle.hide-text').removeClass('d-none');
+        $tocTitle.find('.toc_toggle.show-text').addClass('d-none');
+        $tocContainer.addClass('contracted');
+        $tocContainer.find('ul:first').show('fast');
     }
 
     function hideToCContainer() {
-        $tocTitle.find('a').html($tocTitle.data('show-text'));
-        $(".toc-container ul:first").hide("fast");
-        $(".toc-container").removeClass("contracted");
+        $tocTitle.find('.toc_toggle.show-text').removeClass('d-none');
+        $tocTitle.find('.toc_toggle.hide-text').addClass('d-none');
+        $tocContainer.find('ul:first').hide('fast');
+        $tocContainer.removeClass('contracted');
     }
 
     // Default is Close
     let isVisibilityToC = localStorage.getItem('visibilityTextToC');
     if (isVisibilityToC == '1') {
         showToCContainer();
+    } else {
+        hideToCContainer();
     }
 
-    $(document).on('click', 'span.toc_toggle a', function (e) {
+    $(document).on('click', tocSelector + ' span.toc_toggle a', function (e) {
         e.preventDefault();
         const $this = $(e.currentTarget);
-        const isOpen = $this.closest('.toc-container').hasClass('contracted');
+        const isOpen = $this.closest(tocSelector).hasClass('contracted');
         if (isOpen) {
             localStorage.setItem('visibilityTextToC', '0');
             hideToCContainer();
