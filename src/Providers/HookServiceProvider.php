@@ -2,7 +2,6 @@
 
 namespace Plugin\ToC\Providers;
 
-use Botble\Base\Models\BaseModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 use MetaBox;
@@ -19,7 +18,7 @@ class HookServiceProvider extends ServiceProvider
         add_action(BASE_ACTION_AFTER_UPDATE_CONTENT, [$this, 'saveFieldsInFormScreen'], 75, 3);
     }
 
-    public function addToCContent(string $screen, ?BaseModel $object)
+    public function addToCContent(string $screen, mixed $object)
     {
         if ($object && ToCHelper::isSupportedModel(get_class($object))) {
             if (ToCHelper::config('show_options_in_form') == 'no') {
@@ -40,7 +39,7 @@ class HookServiceProvider extends ServiceProvider
         }
     }
 
-    public function addFieldsInFormScreen(string $context, ?BaseModel $object)
+    public function addFieldsInFormScreen(string $context, mixed $object)
     {
         if ($object && ToCHelper::isSupportedModel(get_class($object)) && ToCHelper::config('show_options_in_form') == 'yes') {
             if ($context == ToCHelper::config('context_meta_box_in_form')) {
@@ -64,7 +63,7 @@ class HookServiceProvider extends ServiceProvider
         }
     }
 
-    public function saveFieldsInFormScreen(string $type, Request $request, ?BaseModel $object)
+    public function saveFieldsInFormScreen(string $type, Request $request, mixed $object)
     {
         if ($object && ToCHelper::isSupportedModel(get_class($object)) && ToCHelper::config('show_options_in_form') == 'yes') {
             $showToC = $request->input('show_toc_in_content');
