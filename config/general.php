@@ -10,7 +10,7 @@ return [
     'position' => 'before-first-heading',
     'start' => 4,
     'show_hierarchy' => 'yes',
-    'ordered_list' => 'no',
+    'ordered_list' => 'yes',
     'heading_levels' => ['2', '3', '4', '5', '6'],
     'css_container_class' => '',
     'show_options_in_form' => 'yes',

@@ -12,7 +12,7 @@
     {{-- // list item --}}
     @if (in_array($matches[$i][2], $options['heading_levels']))
         <a href="#{{ $matches[$i][3] }}">
-            @if ($options['ordered_list'])
+            @if ($options['ordered_list'] == 'yes')
                 {{-- // attach leading numbers when lower in hierarchy --}}
                 <span class="toc_number toc_depth_{{ $currentDepth - $numberedItemsMin + 1 }}">
                 @for ($j = $numberedItemsMin; $j < $currentDepth; $j++)
