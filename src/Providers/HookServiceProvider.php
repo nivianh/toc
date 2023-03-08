@@ -4,6 +4,7 @@ namespace Plugin\ToC\Providers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
+use MacroableModels;
 use MetaBox;
 use Theme;
 use ToCHelper;
@@ -34,7 +35,12 @@ class HookServiceProvider extends ServiceProvider
                     ->container('footer')
                     ->add('toc-js', 'vendor/core/plugins/toc/js/toc.js', ['jquery']);
 
-                $object->content = ToCHelper::theContent($object->content);
+                $content = $object->content;
+                MacroableModels::addMacro(
+                    get_class($object),
+                    'getContentAttribute',
+                    fn () => ToCHelper::theContent($content)
+                );
             }
         }
     }
