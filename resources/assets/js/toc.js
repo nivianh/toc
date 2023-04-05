@@ -1,12 +1,16 @@
-$(() => {
+$(function () {
     const tocSelector = '.toc-container';
     const $tocContainer = $(tocSelector);
 
     const $tocTitle = $tocContainer.find('.toc_title');
 
-    if (window.location.hash && $tocContainer.find('ul').length) {
-        scrollToElement(window.location.hash)
-    }
+    setTimeout(() => {
+        if (window.location.hash && $tocContainer.find('ul a[href="' + window.location.hash + '"]').length) {
+            if ($('html')[0].scrollTop == 0) {
+                scrollToElement(window.location.hash);
+            }
+        }
+    }, 500)
 
     $(document).on('click', tocSelector + ' ul a[href^="#"]', (e) => {
         e.preventDefault();
@@ -28,7 +32,10 @@ $(() => {
             $([document.documentElement, document.body]).animate({
                 scrollTop: $target.offset().top - offset
             }, 1000);
-            window.location.hash = hash;
+
+            if (hash !== window.location.hash) {
+                window.location.hash = hash;
+            }
         }
     }
 

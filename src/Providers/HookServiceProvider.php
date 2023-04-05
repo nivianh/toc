@@ -2,12 +2,12 @@
 
 namespace Plugin\ToC\Providers;
 
+use Botble\Base\Facades\MacroableModels;
+use Botble\Base\Facades\MetaBox;
+use Botble\Theme\Facades\Theme;
 use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
-use MacroableModels;
-use MetaBox;
-use Theme;
-use ToCHelper;
+use Plugin\ToC\Facades\ToCHelper;
 
 class HookServiceProvider extends ServiceProvider
 {
@@ -55,7 +55,7 @@ class HookServiceProvider extends ServiceProvider
                     function () {
                         $args = func_get_args();
                         $showToC = 'default';
-                        if (!empty($args[0])) {
+                        if (! empty($args[0])) {
                             $data = $args[0];
                             $showToC = $data->getMetaData('show_toc_in_content', true);
                         }

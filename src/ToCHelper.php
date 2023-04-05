@@ -58,12 +58,14 @@ class ToCHelper
     protected function afterFirstHeading(string $html, array $find, array $replace, string $content): string
     {
         $replace[0] = $replace[0] . $html;
+
         return $this->mbFindReplace($find, $replace, $content);
     }
 
     protected function beforeFirstHeading(string $html, array $find, array $replace, string $content): string
     {
         $replace[0] = $html . $replace[0];
+
         return $this->mbFindReplace($find, $replace, $content);
     }
 
@@ -158,10 +160,11 @@ class ToCHelper
                             for ($j = 0; $j < count($excludedHeadings); $j++) {
                                 if (@preg_match('/^' . $excludedHeadings[$j] . '$/imU', strip_tags($matches[$i][0]))) {
                                     $found = true;
+
                                     break;
                                 }
                             }
-                            if (!$found) {
+                            if (! $found) {
                                 $newMatches[] = $matches[$i];
                             }
                         }
@@ -256,11 +259,11 @@ class ToCHelper
         if ($title) {
             $return = html_entity_decode($title, ENT_QUOTES);
             $return = preg_replace('`<br[/\s]*>`i', "\r\n", $return);
-			$return = trim(strip_tags($return));
+            $return = trim(strip_tags($return));
 
             // if blank, then prepend with the fragment prefix
             // blank anchors normally appear on sites that don't use the latin charset
-            if (!$return) {
+            if (! $return) {
                 $return = $this->config('fragment_prefix') ?: '_';
             }
 
@@ -283,7 +286,7 @@ class ToCHelper
 
     public function registerModule(string|array $model): self
     {
-        if (!is_array($model)) {
+        if (! is_array($model)) {
             $model = [$model];
         }
 

@@ -69,11 +69,11 @@
                                 <div class="row align-items-center">
                                     <div class="col-auto">
                                         {!! Form::number('start', ToCHelper::config('start'), [
-                                                'id' => 'start',
-                                                'min' => '0',
-                                                'class' => 'form-control' . ($errors->has('start') ? ' is-invalid' : ''),
-                                                'required' => true,
-                                            ]) !!}
+                                            'id' => 'start',
+                                            'min' => '0',
+                                            'class' => 'form-control' . ($errors->has('start') ? ' is-invalid' : ''),
+                                            'required' => true,
+                                        ]) !!}
                                     </div>
                                     <div class="col-auto">
                                         <span>{{ trans('plugins/toc::toc.settings.or_more_headings_are_presend') }}</span>
@@ -94,9 +94,9 @@
                             </div>
                             <div class="col-md-9">
                                 {!! Form::text('css_container_class', ToCHelper::config('css_container_class'), [
-                                        'class' => 'form-control' . ($errors->has('css_container_class') ? ' is-invalid' : ''),
-                                        'id' => 'css_container_class',
-                                    ]) !!}
+                                    'class' => 'form-control' . ($errors->has('css_container_class') ? ' is-invalid' : ''),
+                                    'id' => 'css_container_class',
+                                ]) !!}
 
                                 @if ($errors->has('css_container_class'))
                                     <span class="invalid-feedback">

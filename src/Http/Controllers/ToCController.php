@@ -5,7 +5,7 @@ namespace Plugin\ToC\Http\Controllers;
 use Botble\Base\Http\Controllers\BaseController;
 use Botble\Base\Http\Responses\BaseHttpResponse;
 use Botble\Setting\Supports\SettingStore;
-use Plugin\ToC\Http\Requests\ToCSettingsRequest;
+use Plugin\ToC\Http\Requests\ToCSettingRequest;
 use Plugin\ToC\Plugin;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -13,11 +13,8 @@ use Illuminate\Support\Arr;
 
 class ToCController extends BaseController
 {
-    protected SettingStore $settingStore;
-
-    public function __construct(SettingStore $settingStore)
+    public function __construct(protected SettingStore $settingStore)
     {
-        $this->settingStore = $settingStore;
     }
 
     public function settings(): Factory|View
@@ -27,7 +24,7 @@ class ToCController extends BaseController
         return view('plugins/toc::settings');
     }
 
-    public function postSettings(ToCSettingsRequest $request, BaseHttpResponse $response): BaseHttpResponse
+    public function postSettings(ToCSettingRequest $request, BaseHttpResponse $response): BaseHttpResponse
     {
         $validated = $request->validated();
         foreach ($validated as $key => $value) {

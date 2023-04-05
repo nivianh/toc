@@ -3,10 +3,9 @@
 namespace Plugin\ToC\Providers;
 
 use Botble\Base\Traits\LoadAndPublishDataTrait;
-use Plugin\ToC\Facades\ToCHelperFacade;
+use Plugin\ToC\Facades\ToCHelper;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Routing\Events\RouteMatched;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 
 class ToCServiceProvider extends ServiceProvider
@@ -15,7 +14,7 @@ class ToCServiceProvider extends ServiceProvider
 
     public function register()
     {
-        AliasLoader::getInstance()->alias('ToCHelper', ToCHelperFacade::class);
+        AliasLoader::getInstance()->alias('ToCHelper', ToCHelper::class);
     }
 
     public function boot()
@@ -31,7 +30,7 @@ class ToCServiceProvider extends ServiceProvider
 
         $this->app->register(HookServiceProvider::class);
 
-        Event::listen(RouteMatched::class, function () {
+        $this->app['events']->listen(RouteMatched::class, function () {
             dashboard_menu()
                 ->registerItem([
                     'id' => 'cms-plugins-toc-settings',

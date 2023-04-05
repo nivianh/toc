@@ -5,7 +5,7 @@ namespace Plugin\ToC\Http\Requests;
 use Botble\Support\Http\Requests\Request;
 use Illuminate\Validation\Rule;
 
-class ToCSettingsRequest extends Request
+class ToCSettingRequest extends Request
 {
     public function rules(): array
     {
