@@ -343,6 +343,10 @@ class ToCHelper
             $options = Arr::get($options, $key, $default);
         }
 
+        if (in_array($options, ['0', '1'])) {
+            $options = $options ? 'yes' : 'no';
+        }
+
         return $options;
     }
 }

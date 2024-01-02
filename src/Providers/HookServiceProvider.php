@@ -21,14 +21,14 @@ class HookServiceProvider extends ServiceProvider
 
     public function addToCContent(string $screen, mixed $object)
     {
-        if ($object && ToCHelper::isSupportedModel(get_class($object))) {
+        if ($object && ToCHelper::isSupportedModel(get_class($object)) && ToCHelper::config('is_enabled') == 'yes') {
             if (ToCHelper::config('show_options_in_form') == 'no') {
                 $showToC = 'default';
             } else {
                 $showToC = $object->getMetaData('show_toc_in_content', true) ?: 'default';
             }
 
-            if ($showToC == 'yes' || ($showToC == 'default' && ToCHelper::config('is_enabled') == 'yes')) {
+            if (in_array($showToC, ['yes', 'default'])) {
                 Theme::asset()->add('toc-css', 'vendor/core/plugins/toc/css/toc.css');
 
                 Theme::asset()
@@ -47,7 +47,12 @@ class HookServiceProvider extends ServiceProvider
 
     public function addFieldsInFormScreen(string $context, mixed $object)
     {
-        if ($object && ToCHelper::isSupportedModel(get_class($object)) && ToCHelper::config('show_options_in_form') == 'yes') {
+        if (
+            $object
+            && ToCHelper::isSupportedModel(get_class($object))
+            && ToCHelper::config('show_options_in_form') == 'yes'
+            && ToCHelper::config('is_enabled') == 'yes')
+        {
             if ($context == ToCHelper::config('context_meta_box_in_form')) {
                 MetaBox::addMetaBox(
                     'additional_toc_fields',
@@ -71,7 +76,12 @@ class HookServiceProvider extends ServiceProvider
 
     public function saveFieldsInFormScreen(string $type, Request $request, mixed $object)
     {
-        if ($object && ToCHelper::isSupportedModel(get_class($object)) && ToCHelper::config('show_options_in_form') == 'yes') {
+        if (
+            $object
+            && ToCHelper::isSupportedModel(get_class($object))
+            && ToCHelper::config('show_options_in_form') == 'yes'
+            && ToCHelper::config('is_enabled') == 'yes')
+        {
             $showToC = $request->input('show_toc_in_content');
             if (in_array($showToC, ['default', 'yes', 'no'])) {
                 MetaBox::saveMetaBoxData($object, 'show_toc_in_content', $showToC);

@@ -26,6 +26,10 @@ return [
         'anchor_prefix' => 'Anchor prefix',
         'ordered_list' => 'Ordered list',
         'show_hierarchy' => 'Show hierarchy',
+        'before_first_heading' => 'Before first heading',
+        'after_first_heading' => 'After first heading',
+        'top' => 'Top',
+        'bottom' => 'Bottom',
         'context' => [
             'sidebar' => 'Sidebar',
             'top' => 'Top',
