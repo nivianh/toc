@@ -1,3 +1,5 @@
+@dd(1)
+
 <div class="toc-container {{ $cssClasses ?? '' }} table-of-content">
     <p class="toc_title">
         {{ trans('plugins/toc::toc.name') }}
