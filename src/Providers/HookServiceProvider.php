@@ -28,7 +28,7 @@ class HookServiceProvider extends ServiceProvider
                 $showToC = $object->getMetaData('show_toc_in_content', true) ?: 'default';
             }
 
-            if ($showToC == 'yes' || $showToC == 'default') {
+            if (in_array($showToC, ['yes', 'default'])) {
                 Theme::asset()->add('toc-css', 'vendor/core/plugins/toc/css/toc.css');
 
                 Theme::asset()
