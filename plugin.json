@@ -5,6 +5,6 @@
     "provider": "Plugin\\ToC\\Providers\\ToCServiceProvider",
     "author": "Anh Ngo",
     "url": "https://github.com/nivianh",
-    "version": "2.2.0",
+    "version": "2.2.2",
     "description": "Plugin allows you to insert a table of contents into your posts, pages and custom post types."
 }
